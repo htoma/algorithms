@@ -23,8 +23,13 @@ namespace MedianOnline
 
         private static int getMedianForArray(List<int> values)
         {
+            if (values.Count == 1)
+            {
+                return values[0];
+            }
+            values.Sort();
             int half = values.Count / 2;
-            return values.Count % 2 == 0 ? (values[half] + values[half - 1]) / 2 : values[half - 1];               
+            return values.Count % 2 == 0 ? (values[half] + values[half - 1]) / 2 : values[half];               
         }
     }
 }

@@ -29,12 +29,38 @@ namespace Heaps
             // heapify list of values
             _values = values;
 
+            Heapify();
+        }
+
+        public void Heapify()
+        {
             // heap down, but have to start with the childs
             // the first one to be processed will be the parent of last element
             for (int pos = getParentPos(_values.Count - 1); pos >= 0; pos--)
             {
                 heapDown(pos, _values.Count - 1);
             }
+        }
+
+        public int Pop()
+        {
+            if (_values.Count == 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            int result = _values[0];
+            _values.RemoveAt(0);
+            if (_values.Count > 1)
+            {
+                heapDown(0, _values.Count - 1);
+            }
+            return result;
+        }
+
+        public int Capacity()
+        {
+            return _values.Count;
         }
 
         public void Print()
@@ -70,6 +96,10 @@ namespace Heaps
                 result.Add(_values[curPos]);
                 heapDown(0, --curPos);
             }
+
+            // at the end of the method, the heap will be sorted in reverse order
+            // it needs to be heapified
+            Heapify();
 
             return result;
         }        
