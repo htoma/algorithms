@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Sources\BinaryTree.cs" />
+    <Compile Include="Sources\BinaryTreeDiameter.cs" />
     <Compile Include="Sources\BinaryTreeNextBiggerNumber.cs" />
     <Compile Include="Sources\Braces.cs" />
     <Compile Include="Sources\CoverLength.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Sources\SkipLists\LevelNode.cs" />
     <Compile Include="Sources\SkipLists\Node.cs" />
     <Compile Include="Sources\SkipLists\SkipList.cs" />
+    <Compile Include="Tests\BinaryTreeDiameterTests.cs" />
     <Compile Include="Tests\BinaryTreeTests.cs" />
     <Compile Include="Tests\BinaryTreeNextBiggerNumberTests.cs" />
     <Compile Include="Tests\CoverLengthTests.cs" />

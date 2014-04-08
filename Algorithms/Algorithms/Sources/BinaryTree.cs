@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -10,9 +11,9 @@ namespace Algorithms.Sources
         public BinaryTree<T> Left { get; set; }
         public BinaryTree<T> Right { get; set; }
 
-        public BinaryTree()
+        public BinaryTree(T data)
         {
-            
+            Data = data;
         } 
 
         public BinaryTree(List<T> values)
@@ -111,6 +112,42 @@ namespace Algorithms.Sources
                 return FindNode(data, head.Right, comparer);
             }
             return FindNode(data, head.Left, comparer);
+        }
+
+        public static int GetTreeHeight(BinaryTree<T> node)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+
+            return 1 + Math.Max(GetTreeHeight(node.Left), GetTreeHeight(node.Right));
+        }
+
+        public static Dictionary<int, int> GetWidths(BinaryTree<T> node)
+        {
+            var result = new Dictionary<int, int>();
+            getWidth(node, 1, result);
+            return result;
+        }
+
+        private static void getWidth(BinaryTree<T> node, int level, Dictionary<int, int> levelWidths)
+        {
+            if (node == null)
+            {
+                return;
+            }
+
+            if (!levelWidths.ContainsKey(level))
+            {
+                levelWidths[level] = 1;
+            }
+            else
+            {
+                levelWidths[level]++;
+            }
+            getWidth(node.Left, level + 1, levelWidths);
+            getWidth(node.Right, level + 1, levelWidths);
         }
 
         /// <summary>
