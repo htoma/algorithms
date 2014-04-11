@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Algorithms.Sources;
+using Algorithms.Sources.Trees;
+
 using NUnit.Framework;
 
 namespace Algorithms.Tests

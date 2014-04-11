@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Algorithms.Sources;
+
+using Algorithms.Sources.Trees;
+
 using NUnit.Framework;
 
 namespace Algorithms.Tests
@@ -83,6 +85,35 @@ namespace Algorithms.Tests
             Assert.AreEqual(widths[4], 2);
             Assert.AreEqual(widths[5], 2);
             Assert.AreEqual(widths[6], 2);
+        }
+
+        [Test]
+        public void TestIfTreeIsBinarySearchTree()
+        {
+            int min, max;
+
+            var tree = new BinaryTree<int>(new List<int> { 2, 1, 3 });            
+            Assert.IsFalse(BinaryTree<int>.IsTreeBinarySearchTree(tree, out min, out max));
+
+            tree = new BinaryTree<int>(new List<int> { 1, 2, 3 });
+            Assert.IsTrue(BinaryTree<int>.IsTreeBinarySearchTree(tree, out min, out max));
+
+            var head = new BinaryTree<int>(7);
+            var p = new BinaryTree<int>(4);
+            head.Left = p;
+            p.Left = new BinaryTree<int>(2);
+            p.Right = new BinaryTree<int>(5);
+            var q = new BinaryTree<int>(9);
+            head.Right = q;
+            q.Left = new BinaryTree<int>(8);
+            p = new BinaryTree<int>(10);
+            q.Right = p;
+            
+            Assert.IsTrue(BinaryTree<int>.IsTreeBinarySearchTree(head, out min, out max));
+
+            p.Left = new BinaryTree<int>(6);
+
+            Assert.IsFalse(BinaryTree<int>.IsTreeBinarySearchTree(head, out min, out max));
         }
     }
 }
