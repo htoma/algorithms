@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sources\MatrixInSpiral.cs" />
     <Compile Include="Sources\Trees\BinaryTree.cs" />
     <Compile Include="Sources\Trees\BinaryTreeDiameter.cs" />
     <Compile Include="Sources\Trees\BinaryTreeNextBiggerNumber.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Tests\BracesTests.cs" />
     <Compile Include="Tests\GraphTests.cs" />
     <Compile Include="Tests\HeapTests.cs" />
+    <Compile Include="Tests\MatrixInSpiralTests.cs" />
     <Compile Include="Tests\MedianForTwoSortedArraysTests.cs" />
     <Compile Include="Tests\MedianOnlineTests.cs" />
     <Compile Include="Tests\MedianUnsortedArrayTests.cs" />
