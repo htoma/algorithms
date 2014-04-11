@@ -49,9 +49,13 @@
     <Compile Include="Sources\Braces.cs" />
     <Compile Include="Sources\CoverLength.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sources\Graphs\AdjacencyList\Graph.cs" />
+    <Compile Include="Sources\Graphs\Edge.cs" />
+    <Compile Include="Sources\Graphs\AdjacencyList\Vertex.cs" />
     <Compile Include="Sources\Heap.cs" />
     <Compile Include="Sources\MedianOnline.cs" />
     <Compile Include="Sources\MedianForTwoSortedArrays.cs" />
+    <Compile Include="Sources\MedianUnsortedArray.cs" />
     <Compile Include="Sources\MergeDisjointedIntervals\DisjointedInterval.cs" />
     <Compile Include="Sources\MergeDisjointedIntervals\MergeDisjointedIntervals.cs" />
     <Compile Include="Sources\NextBiggerNumber.cs" />
@@ -64,14 +68,17 @@
     <Compile Include="Tests\BinaryTreeNextBiggerNumberTests.cs" />
     <Compile Include="Tests\CoverLengthTests.cs" />
     <Compile Include="Tests\BracesTests.cs" />
+    <Compile Include="Tests\GraphTests.cs" />
     <Compile Include="Tests\HeapTests.cs" />
     <Compile Include="Tests\MedianForTwoSortedArraysTests.cs" />
     <Compile Include="Tests\MedianOnlineTests.cs" />
+    <Compile Include="Tests\MedianUnsortedArrayTests.cs" />
     <Compile Include="Tests\MergeDisjointedIntervalsTests.cs" />
     <Compile Include="Tests\NextBiggerNumberTests.cs" />
     <Compile Include="Tests\NextPalindromeTests.cs" />
     <Compile Include="Tests\SkipListsTests.cs" />
     <Compile Include="Utils\Comparer.cs" />
+    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
