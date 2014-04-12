@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Algorithms.Sources.Trees;
@@ -115,5 +116,108 @@ namespace Algorithms.Tests
 
             Assert.IsFalse(BinaryTree<int>.IsTreeBinarySearchTree(head, out min, out max));
         }
+
+        [Test]
+        public void TestFindPred()
+        {
+            var head = buildTreeForDeletion();
+
+            Assert.IsNull(BinaryTree<int>.FindPred(10, new Utils.Comparer<int>(), head).Item1);
+            var pred = BinaryTree<int>.FindPred(5, new Utils.Comparer<int>(), head);
+            Assert.AreEqual(pred.Item1.Data, 10);
+            pred = BinaryTree<int>.FindPred(3, new Utils.Comparer<int>(), head);
+            Assert.AreEqual(pred.Item1.Data, 5);
+            pred = BinaryTree<int>.FindPred(2, new Utils.Comparer<int>(), head);
+            Assert.AreEqual(pred.Item1.Data, 3);
+            pred = BinaryTree<int>.FindPred(4, new Utils.Comparer<int>(), head);
+            Assert.AreEqual(pred.Item1.Data, 3);
+            pred = BinaryTree<int>.FindPred(12, new Utils.Comparer<int>(), head);
+            Assert.AreEqual(pred.Item1.Data, 10);
+            pred = BinaryTree<int>.FindPred(11, new Utils.Comparer<int>(), head);
+            Assert.AreEqual(pred.Item1.Data, 12);
+            pred = BinaryTree<int>.FindPred(11, new Utils.Comparer<int>(), head);
+            Assert.AreEqual(pred.Item1.Data, 12);
+            pred = BinaryTree<int>.FindPred(13, new Utils.Comparer<int>(), head);
+            Assert.AreEqual(pred.Item1.Data, 12);
+        }
+
+        [Test]
+        public void TestNodeDeletion()
+        {
+            var head = buildTreeForDeletion();
+
+            BinaryTree<int>.DeleteTree(10, new Utils.Comparer<int>(), ref head);
+            Assert.IsNull(head);
+
+            head = buildTreeForDeletion();
+            BinaryTree<int>.DeleteTree(5, new Utils.Comparer<int>(), ref head);
+            BinaryTree<int>.Inorder(head).ForEach(x => Console.Write("{0} ", x));
+            Console.WriteLine();
+
+            head = buildTreeForDeletion();
+            BinaryTree<int>.DeleteTree(3, new Utils.Comparer<int>(), ref head);
+            BinaryTree<int>.Inorder(head).ForEach(x => Console.Write("{0} ", x));
+            Console.WriteLine();
+
+            head = buildTreeForDeletion();
+            BinaryTree<int>.DeleteTree(2, new Utils.Comparer<int>(), ref head);
+            BinaryTree<int>.Inorder(head).ForEach(x => Console.Write("{0} ", x));
+            Console.WriteLine();
+
+            head = buildTreeForDeletion();
+            BinaryTree<int>.DeleteTree(4, new Utils.Comparer<int>(), ref head);
+            BinaryTree<int>.Inorder(head).ForEach(x => Console.Write("{0} ", x));
+            Console.WriteLine();
+
+            head = buildTreeForDeletion();
+            BinaryTree<int>.DeleteTree(8, new Utils.Comparer<int>(), ref head);
+            BinaryTree<int>.Inorder(head).ForEach(x => Console.Write("{0} ", x));
+            Console.WriteLine();
+
+            head = buildTreeForDeletion();
+            BinaryTree<int>.DeleteTree(6, new Utils.Comparer<int>(), ref head);
+            BinaryTree<int>.Inorder(head).ForEach(x => Console.Write("{0} ", x));
+            Console.WriteLine();
+
+            head = buildTreeForDeletion();
+            BinaryTree<int>.DeleteTree(9, new Utils.Comparer<int>(), ref head);
+            BinaryTree<int>.Inorder(head).ForEach(x => Console.Write("{0} ", x));
+            Console.WriteLine();
+
+            head = buildTreeForDeletion();
+            BinaryTree<int>.DeleteTree(12, new Utils.Comparer<int>(), ref head);
+            BinaryTree<int>.Inorder(head).ForEach(x => Console.Write("{0} ", x));
+            Console.WriteLine();
+
+            head = buildTreeForDeletion();
+            BinaryTree<int>.DeleteTree(11, new Utils.Comparer<int>(), ref head);
+            BinaryTree<int>.Inorder(head).ForEach(x => Console.Write("{0} ", x));
+            Console.WriteLine();
+
+            head = buildTreeForDeletion();
+            BinaryTree<int>.DeleteTree(13, new Utils.Comparer<int>(), ref head);
+            BinaryTree<int>.Inorder(head).ForEach(x => Console.Write("{0} ", x));
+            Console.WriteLine();
+        }
+
+        private BinaryTree<int> buildTreeForDeletion()
+        {
+            var head = new BinaryTree<int>(10);
+            var p = new BinaryTree<int>(5);
+            head.Left = p;
+            var q = new BinaryTree<int>(3);
+            p.Left = q;
+            q.Left = new BinaryTree<int>(2);
+            q.Right = new BinaryTree<int>(4);
+            q = new BinaryTree<int>(8);
+            q.Left = new BinaryTree<int>(6);
+            q.Right = new BinaryTree<int>(9);
+            p.Right = q;           
+            p = new BinaryTree<int>(12);
+            head.Right = p;
+            p.Left = new BinaryTree<int>(11);
+            p.Right = new BinaryTree<int>(13);
+            return head;
+        }  
     }
 }

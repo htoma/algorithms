@@ -160,6 +160,79 @@ namespace Algorithms.Sources.Trees
             return true;
         }
 
+        public static Tuple<BinaryTree<T>, bool> FindPred(T value, IComparer<T> comparer, 
+            BinaryTree<T> node, bool left = false, BinaryTree<T> pred = null)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+
+            if (comparer.Compare(node.Data, value) == 0)
+            {
+                return new Tuple<BinaryTree<T>, bool>(pred, left);
+            }
+
+            if (comparer.Compare(node.Data, value) == -1)
+            {
+                return FindPred(value, comparer, node.Right, false, node);
+            }
+
+            return FindPred(value, comparer, node.Left, true, node);
+        }
+
+        public static void DeleteTree(T value, IComparer<T> comparer, ref BinaryTree<T> head)
+        {
+            if (head == null)
+            {
+                return;
+            }
+
+            BinaryTree<T> node = FindNode(value, head, comparer);
+            if (node == null)
+            {
+                return;
+            }
+
+            if (comparer.Compare(node.Data, head.Data) == 0)
+            {
+                head = null;
+                return;
+            }
+
+            Tuple<BinaryTree<T>, bool> pred = FindPred(value, comparer, head);
+
+            if (node.Left == null)
+            {
+                node = node.Right;
+                if (pred.Item2)
+                {
+                    pred.Item1.Left = node;
+                }
+                else
+                {
+                    pred.Item1.Right = node;
+                }
+                return;
+            }
+          
+            BinaryTree<T> tmp = node.Left;
+            while (tmp.Right != null)
+            {
+                tmp = tmp.Right;
+            }
+            tmp.Right = node.Right;
+            node = node.Left;
+            if (pred.Item2)
+            {
+                pred.Item1.Left = node;
+            }
+            else
+            {
+                pred.Item1.Right = node;
+            }
+        }
+
         private static void getWidth(BinaryTree<T> node, int level, Dictionary<int, int> levelWidths)
         {
             if (node == null)

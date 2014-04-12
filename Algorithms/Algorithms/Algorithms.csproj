@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sources\CoinProblem.cs" />
     <Compile Include="Sources\MatrixInSpiral.cs" />
     <Compile Include="Sources\Trees\BinaryTree.cs" />
     <Compile Include="Sources\Trees\BinaryTreeDiameter.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Tests\BinaryTreeDiameterTests.cs" />
     <Compile Include="Tests\BinaryTreeTests.cs" />
     <Compile Include="Tests\BinaryTreeNextBiggerNumberTests.cs" />
+    <Compile Include="Tests\CoinProblemTests.cs" />
     <Compile Include="Tests\CoverLengthTests.cs" />
     <Compile Include="Tests\BracesTests.cs" />
     <Compile Include="Tests\GraphTests.cs" />
