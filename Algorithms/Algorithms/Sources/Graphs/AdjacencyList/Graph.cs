@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
 
 namespace Algorithms.Sources.Graphs.AdjacencyList
 {
@@ -90,15 +89,6 @@ namespace Algorithms.Sources.Graphs.AdjacencyList
 
             return true;
         }
-
-        /// <summary>
-        /// detects first cycle
-        /// </summary>
-        public List<T> DetectCycle()
-        {
-            return null;
-        }
-
 
         /// <summary>
         /// breadth first search
