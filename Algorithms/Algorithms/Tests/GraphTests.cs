@@ -145,5 +145,38 @@ namespace Algorithms.Tests
                 Console.WriteLine("{0} : {1}", cost.Key, cost.Value);
             }
         }
+
+        [Test]
+        public void TestDetectCycle()
+        {
+            var graph = new Graph<int>();
+            var vertex1 = new Vertex<int>(1);
+            var vertex2 = new Vertex<int>(2);
+            var vertex3 = new Vertex<int>(3);
+            var vertex4 = new Vertex<int>(4);
+            var vertex5 = new Vertex<int>(5);
+            var vertex6 = new Vertex<int>(6);
+            var vertex7 = new Vertex<int>(7);
+
+            graph.AddVertex(vertex1);
+            graph.AddVertex(vertex2);
+            graph.AddVertex(vertex3);
+            graph.AddVertex(vertex4);
+            graph.AddVertex(vertex5);
+            graph.AddVertex(vertex6);
+            graph.AddVertex(vertex7);
+
+            graph.AddUndirectedEdge(vertex1, vertex2);
+            graph.AddUndirectedEdge(vertex1, vertex3);
+            graph.AddUndirectedEdge(vertex3, vertex4);
+            graph.AddUndirectedEdge(vertex3, vertex6);
+            graph.AddUndirectedEdge(vertex4, vertex5);            
+            graph.AddUndirectedEdge(vertex6, vertex7);
+
+            Assert.IsFalse(Graph<int>.DetectCycle(graph));
+
+            graph.AddUndirectedEdge(vertex5, vertex6);
+            Assert.IsTrue(Graph<int>.DetectCycle(graph));
+        }
     }
 }

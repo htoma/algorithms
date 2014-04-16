@@ -200,6 +200,14 @@ namespace Algorithms.Tests
             Console.WriteLine();
         }
 
+        [Test]
+        public void TestInorderWithStack()
+        {
+            var tree = new BinaryTree<int>(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 });
+            List<int> list = BinaryTree<int>.InorderWithStack(tree);
+            Assert.That(list, Is.EquivalentTo(new[] { 1, 2, 3, 4, 5, 6, 7, 8 }));
+        }
+
         private BinaryTree<int> buildTreeForDeletion()
         {
             var head = new BinaryTree<int>(10);

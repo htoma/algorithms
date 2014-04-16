@@ -15,6 +15,13 @@ namespace Algorithms.Utils
             return values.Count % 2 == 0 ? (values[half - 1] + values[half]) / 2 : values[half];
         }
 
+        public static void Switch<T>(T[] values, int first, int second)
+        {
+            T aux = values[first];
+            values[first] = values[second];
+            values[second] = aux;
+        }
+
         public static void Switch<T>(List<T> values, int first, int second)
         {
             T aux = values[first];

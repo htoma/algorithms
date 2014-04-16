@@ -24,7 +24,7 @@ namespace Algorithms.Sources.Graphs.AdjacencyList
 
         public void AddDirectedEdge(Vertex<T> from, Vertex<T> to, int cost = 0)
         {
-            from.Edges.AddLast(new Edge<T>(to, cost));
+            from.Edges.AddLast(new Edge<T>(from, to, cost));
         }
 
         public void AddDirectedEdge(T from, T to, int cost = 0)
@@ -46,8 +46,7 @@ namespace Algorithms.Sources.Graphs.AdjacencyList
 
         public void AddUndirectedEdge(Vertex<T> from, Vertex<T> to, int cost = 0)
         {
-            from.Edges.AddLast(new Edge<T>(to, cost));
-            to.Edges.AddLast(new Edge<T>(from, cost));
+            from.Edges.AddLast(new Edge<T>(from, to, cost));
         }
 
         public void AddUndirectedEdge(T from, T to, int cost = 0)
@@ -174,6 +173,49 @@ namespace Algorithms.Sources.Graphs.AdjacencyList
             }
 
             return result;
+        }
+
+        public static bool DetectCycle(Graph<T> graph)
+        {
+            if (graph == null || graph.Vertexes.Count < 3)
+            {
+                return false;
+            }
+
+            var visitedVertexes = new Dictionary<T, bool>();
+            foreach (Vertex<T> vertex in graph.Vertexes)
+            {
+                visitedVertexes[vertex.Data] = false;
+            }
+
+            return detectCycle(graph.Vertexes[0], visitedVertexes, new HashSet<Edge<T>>());
+        }
+
+        private static bool detectCycle(Vertex<T> vertex, Dictionary<T, bool> visitedVertexes, HashSet<Edge<T>> checkedEdges)
+        {
+            visitedVertexes[vertex.Data] = true;
+            foreach (Edge<T> edge in vertex.Edges)
+            {
+                if (!visitedVertexes[edge.To.Data])
+                {
+                    // never been to this vertex
+                    checkedEdges.Add(edge);
+                    if (detectCycle(edge.To, visitedVertexes, checkedEdges))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    // node hit previously
+                    if (!checkedEdges.Contains(edge))
+                    {
+                        // reached coming from some other node, oups! cycle detected
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private void dfsNode(Vertex<T> node, Queue<Vertex<T>> queue, HashSet<T> nodesChecked)

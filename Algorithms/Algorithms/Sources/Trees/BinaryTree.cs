@@ -13,7 +13,7 @@ namespace Algorithms.Sources.Trees
 
         public BinaryTree(T data)
         {
-            this.Data = data;
+            Data = data;
         } 
 
         public BinaryTree(List<T> values)
@@ -23,7 +23,7 @@ namespace Algorithms.Sources.Trees
 
         public BinaryTree(List<T> values, int start, int end)
         {
-            this.insertBalanced(values, start, end);
+            insertBalanced(values, start, end);
         } 
 
         public static List<T> Inorder(BinaryTree<T> node)
@@ -233,6 +233,41 @@ namespace Algorithms.Sources.Trees
             }
         }
 
+        public static List<T> InorderWithStack(BinaryTree<T> node)
+        {
+            var result = new List<T>();
+            if (node == null)
+            {
+                return result;
+            }
+
+            var stack = new Stack<BinaryTree<T>>();
+            stack.Push(node);
+
+            // when backtracking, avoid reading the left child since it was processed
+            bool finishedWithLeftChild = false;
+            while (stack.Count > 0)
+            {
+                BinaryTree<T> cur = stack.Peek();
+                if (!finishedWithLeftChild && cur.Left != null)
+                {
+                    stack.Push(cur.Left);
+                }
+                else
+                {
+                    result.Add(cur.Data);
+                    stack.Pop();
+                    finishedWithLeftChild = true;
+                    if (cur.Right != null)
+                    {
+                        stack.Push(cur.Right);
+                        finishedWithLeftChild = false;
+                    }
+                }
+            }
+            return result;
+        } 
+
         private static void getWidth(BinaryTree<T> node, int level, Dictionary<int, int> levelWidths)
         {
             if (node == null)
@@ -264,15 +299,15 @@ namespace Algorithms.Sources.Trees
 
             if (start == end)
             {
-                this.Data = values[start];
+                Data = values[start];
                 return;
             }
 
             int diff = end - start;
             int half = start + diff / 2;
-            this.Data = values[half];
-            this.Left = start <= half -1 ? new BinaryTree<T>(values, start, half - 1) : null;
-            this.Right = half + 1 <= end ? new BinaryTree<T>(values, half + 1, end) : null;
+            Data = values[half];
+            Left = start <= half - 1 ? new BinaryTree<T>(values, start, half - 1) : null;
+            Right = half + 1 <= end ? new BinaryTree<T>(values, half + 1, end) : null;
         }         
     }
 }
