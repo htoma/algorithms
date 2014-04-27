@@ -208,6 +208,37 @@ namespace Algorithms.Tests
             Assert.That(list, Is.EquivalentTo(new[] { 1, 2, 3, 4, 5, 6, 7, 8 }));
         }
 
+        [Test]
+        public void TestFindCommonAncestorNotBst()
+        {
+            var tree = new BinaryTree<int>(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
+            Assert.AreEqual(BinaryTree<int>.FindAncestor(tree, 1, 3).Data, 2);
+            Assert.AreEqual(BinaryTree<int>.FindAncestor(tree, 1, 5).Data, 4);
+            Assert.AreEqual(BinaryTree<int>.FindAncestor(tree, 2, 10).Data, 8);
+            Assert.AreEqual(BinaryTree<int>.FindAncestor(tree, 4, 7).Data, 4);
+            Assert.AreEqual(BinaryTree<int>.FindAncestor(tree, 6, 15).Data, 8);
+        }
+
+        [Test]
+        public void TestSumPaths()
+        {
+            var tree = new BinaryTree<int>(new List<int> {2, 6, 4, 3, 9, 2, 5, 1, 1, 5, 2, 3, 1, 9, 10});
+            BinaryTree<int>.FindSumPaths(tree, 10);
+        }
+
+        [Test]
+        public void TestReconstruction()
+        {
+            BinaryTree<int> root = new BinaryTree<int>(Enumerable.Range(1, 100).ToList());
+            List<int> inorder = BinaryTree<int>.Inorder(root);
+            List<int> preorder = BinaryTree<int>.Preorder(root);
+            int[] preorderArray = preorder.ToArray();
+            BinaryTree<int> newRoot = BinaryTree<int>.ReconstructTree(inorder.ToArray(), ref preorderArray);
+            Assert.That(BinaryTree<int>.Inorder(newRoot), Is.EquivalentTo(inorder));
+            Assert.That(BinaryTree<int>.Preorder(newRoot), Is.EquivalentTo(preorder));
+
+        }
+
         private BinaryTree<int> buildTreeForDeletion()
         {
             var head = new BinaryTree<int>(10);

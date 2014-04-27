@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 
@@ -14,17 +15,17 @@ namespace Algorithms.Sources.Trees
         public BinaryTree(T data)
         {
             Data = data;
-        } 
+        }
 
         public BinaryTree(List<T> values)
             : this(values, 0, values.Count - 1)
-        {            
-        } 
+        {
+        }
 
         public BinaryTree(List<T> values, int start, int end)
         {
             insertBalanced(values, start, end);
-        } 
+        }
 
         public static List<T> Inorder(BinaryTree<T> node)
         {
@@ -32,7 +33,7 @@ namespace Algorithms.Sources.Trees
             {
                 return null;
             }
-            
+
             List<T> left = Inorder(node.Left);
             if (left == null)
             {
@@ -47,13 +48,13 @@ namespace Algorithms.Sources.Trees
         }
 
         public static List<T> Preorder(BinaryTree<T> node)
-        {            
+        {
             if (node == null || Equals(node.Data, default(T)))
             {
                 return new List<T>();
             }
 
-            var result = new List<T> { node.Data };
+            var result = new List<T> {node.Data};
 
             List<T> left = Preorder(node.Left);
             if (left != null)
@@ -66,7 +67,7 @@ namespace Algorithms.Sources.Trees
             {
                 result = result.Concat(right).ToList();
             }
-            
+
 
             return result;
         }
@@ -160,7 +161,7 @@ namespace Algorithms.Sources.Trees
             return true;
         }
 
-        public static Tuple<BinaryTree<T>, bool> FindPred(T value, IComparer<T> comparer, 
+        public static Tuple<BinaryTree<T>, bool> FindPred(T value, IComparer<T> comparer,
             BinaryTree<T> node, bool left = false, BinaryTree<T> pred = null)
         {
             if (node == null)
@@ -215,7 +216,7 @@ namespace Algorithms.Sources.Trees
                 }
                 return;
             }
-          
+
             BinaryTree<T> tmp = node.Left;
             while (tmp.Right != null)
             {
@@ -266,7 +267,96 @@ namespace Algorithms.Sources.Trees
                 }
             }
             return result;
-        } 
+        }
+
+        /// <summary>
+        /// find ancestor in a binary tree, not necessarily BST
+        /// </summary>
+        public static BinaryTree<T> FindAncestor(BinaryTree<T> node, T value1, T value2)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+
+            var common = findAncestor(node, value1, value2);
+            if (common.Item2 == 3)
+            {
+                // found a common ancestor
+                return common.Item1;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// returns a tuple containing a node and a codification of what values were found
+        /// 0 obviously
+        /// 1 found the first one
+        /// 2 found the second one
+        /// 3 found both
+        /// </summary>
+        private static Tuple<BinaryTree<T>, int> findAncestor<T>(BinaryTree<T> node, T value1, T value2)
+        {
+            if (node == null)
+            {
+                return new Tuple<BinaryTree<T>, int>(node, 0);
+            }
+
+            if (node.Data.Equals(value1))
+            {
+                // check if we can find the other in the subtree
+                bool foundNode = findNode(node.Left, value2) || findNode(node.Right, value2);
+                return new Tuple<BinaryTree<T>, int>(node, foundNode ? 3 : 1);
+            }
+
+            if (node.Data.Equals(value2))
+            {
+                // check if we can find the other in the subtree
+                bool foundNode = findNode(node.Left, value1) || findNode(node.Right, value1);
+                return new Tuple<BinaryTree<T>, int>(node, foundNode ? 3 : 2);
+            }
+
+            // check if both values are in the left subtree
+            var left = findAncestor(node.Left, value1, value2);
+            if (left.Item2 == 3)
+            {
+                return new Tuple<BinaryTree<T>, int>(left.Item1, 3);
+            }
+
+            // check if both values are in the right subtree
+            var right = findAncestor(node.Right, value1, value2);
+            if (right.Item2 == 3)
+            {
+                return new Tuple<BinaryTree<T>, int>(right.Item1, 3);
+            }
+
+            if (left.Item2 == 0 && right.Item2 == 0)
+            {
+                return new Tuple<BinaryTree<T>, int>(node, 0);
+            }
+
+            if (left.Item2 > 0 && right.Item2 > 0 && left.Item2 != right.Item2)
+            {
+                // found the values in the different subtrees
+                return new Tuple<BinaryTree<T>, int>(node, 3);
+            }
+            return new Tuple<BinaryTree<T>, int>(node, Math.Max(left.Item2, right.Item2));
+        }
+
+        private static bool findNode<T>(BinaryTree<T> node, T value)
+        {
+            if (node == null)
+            {
+                return false;
+            }
+
+            if (node.Data.Equals(value))
+            {
+                return true;
+            }
+
+            return findNode(node.Left, value) || findNode(node.Right, value);
+        }
 
         private static void getWidth(BinaryTree<T> node, int level, Dictionary<int, int> levelWidths)
         {
@@ -308,6 +398,101 @@ namespace Algorithms.Sources.Trees
             Data = values[half];
             Left = start <= half - 1 ? new BinaryTree<T>(values, start, half - 1) : null;
             Right = half + 1 <= end ? new BinaryTree<T>(values, half + 1, end) : null;
-        }         
+        }
+
+        public static void FindSumPaths(BinaryTree<int> node, int sum)
+        {
+            if (node == null)
+            {
+                return;
+            }
+            findPaths(node, sum, new List<int>(), 0);
+        }
+
+        private static void findPaths(BinaryTree<int> node, int sum, List<int> pathList, int partialSum)
+        {
+            if (node == null)
+            {
+                return;
+            }
+
+            pathList.Add(node.Data);
+            int newPartialSum = partialSum + node.Data;
+            if (newPartialSum == sum)
+            {
+                printPath(pathList, 0);
+            }
+            else if (newPartialSum > sum)
+            {
+                //we may have found a path
+                int limit = check(pathList, sum);
+                if (limit > -1)
+                {
+                    printPath(pathList, limit);
+                }
+            }
+            findPaths(node.Left, sum, pathList, newPartialSum);
+            findPaths(node.Right, sum, pathList, newPartialSum);
+            pathList.RemoveAt(pathList.Count - 1);
+        }
+
+        private static int check(List<int> pathList, int sum)
+        {
+            for (int i = pathList.Count - 1; i >= 0 && sum > 0; i--)
+            {
+                sum -= pathList[i];
+                if (sum == 0)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        private static void printPath(List<int> values, int startPos)
+        {
+            values.Skip(startPos).ToList().ForEach(x => Console.Write("{0} ", x));
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// build a binary tree starting from two traversal
+        /// preorder will have root at left
+        /// </summary>
+        /// <param name="inorder">inorder traversal</param>
+        /// <param name="preorder">preorder traversal</param>
+        /// <returns></returns>
+        public static BinaryTree<T> ReconstructTree(T[] inorder, ref T[] preorder)
+        {
+            if (preorder.Length == 0)
+            {
+                return null;
+            }
+
+            int pos = findPosInArray(preorder[0], inorder);
+            if (pos == -1)
+            {
+                return null;
+            }
+
+            var root = new BinaryTree<T>(preorder[0]);
+            preorder = preorder.Skip(1).ToArray();
+            root.Left = ReconstructTree(inorder.Take(pos).ToArray(), ref preorder);
+            root.Right = ReconstructTree(inorder.Skip(pos + 1).ToArray(), ref preorder);
+            return root;
+        }
+
+        private static int findPosInArray<T>(T toFind, T[] values)
+        {
+            for (int i = 0; i < values.Length; i++)
+            {
+                if (Equals(toFind, values[i]))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
     }
 }

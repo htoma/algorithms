@@ -43,12 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sources\Binary.cs" />
     <Compile Include="Sources\CoinProblem.cs" />
     <Compile Include="Sources\GeneratePartitions.cs" />
     <Compile Include="Sources\Graphs\Dijkstra.cs" />
     <Compile Include="Sources\LongestCommonSubsequence.cs" />
     <Compile Include="Sources\MatrixInSpiral.cs" />
+    <Compile Include="Sources\NextBiggerInteger.cs" />
     <Compile Include="Sources\Partition.cs" />
+    <Compile Include="Sources\RotateWithOneTraversal.cs" />
     <Compile Include="Sources\Sorting\MergeSort.cs" />
     <Compile Include="Sources\Sorting\Quicksort.cs" />
     <Compile Include="Sources\Trees\BinaryTree.cs" />
@@ -71,6 +74,7 @@
     <Compile Include="Sources\SkipLists\LevelNode.cs" />
     <Compile Include="Sources\SkipLists\Node.cs" />
     <Compile Include="Sources\SkipLists\SkipList.cs" />
+    <Compile Include="Tests\BinaryTests.cs" />
     <Compile Include="Tests\BinaryTreeDiameterTests.cs" />
     <Compile Include="Tests\BinaryTreeTests.cs" />
     <Compile Include="Tests\BinaryTreeNextBiggerNumberTests.cs" />
@@ -88,10 +92,12 @@
     <Compile Include="Tests\MedianUnsortedArrayTests.cs" />
     <Compile Include="Tests\MergeDisjointedIntervalsTests.cs" />
     <Compile Include="Tests\MergeSortTests.cs" />
+    <Compile Include="Tests\NextBiggerIntegerTests.cs" />
     <Compile Include="Tests\NextBiggerNumberTests.cs" />
     <Compile Include="Tests\NextPalindromeTests.cs" />
     <Compile Include="Tests\PartitionTests.cs" />
     <Compile Include="Tests\QuicksortTests.cs" />
+    <Compile Include="Tests\RotateWithOneTraversalTests.cs" />
     <Compile Include="Tests\SkipListsTests.cs" />
     <Compile Include="Utils\Comparer.cs" />
     <Compile Include="Utils\Utils.cs" />

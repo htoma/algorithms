@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Algorithms.Sources;
 using NUnit.Framework;
 
 namespace Algorithms.Tests
@@ -10,7 +11,7 @@ namespace Algorithms.Tests
         public void Test()
         {
             var data = new[] {4, 1, 7, 6, 5, 2};
-            var median = new MedianOnline.MedianOnline();
+            var median = new MedianOnline();
 
             var currentList = new List<int>();
             foreach (var number in data)

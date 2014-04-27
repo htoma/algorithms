@@ -1,6 +1,4 @@
-﻿using Algorithms.Sources;
-
-namespace MedianOnline
+﻿namespace Algorithms.Sources
 {
     /// <summary>
     /// computes median for an incoming flow of numbers
