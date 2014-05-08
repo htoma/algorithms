@@ -54,6 +54,7 @@
     <Compile Include="Sources\MatrixInSpiral.cs" />
     <Compile Include="Sources\NextBiggerInteger.cs" />
     <Compile Include="Sources\Partition.cs" />
+    <Compile Include="Sources\RemoteControl.cs" />
     <Compile Include="Sources\RotateWithOneTraversal.cs" />
     <Compile Include="Sources\Sorting\MergeSort.cs" />
     <Compile Include="Sources\Sorting\Quicksort.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Sources\SkipLists\Node.cs" />
     <Compile Include="Sources\SkipLists\SkipList.cs" />
     <Compile Include="Tests\AdditionWithBitOperationsTests.cs" />
+    <Compile Include="Tests\BinarySearchInMatrix.cs" />
     <Compile Include="Tests\BinaryTests.cs" />
     <Compile Include="Tests\BinaryTreeDiameterTests.cs" />
     <Compile Include="Tests\BinaryTreeTests.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="Tests\NextPalindromeTests.cs" />
     <Compile Include="Tests\PartitionTests.cs" />
     <Compile Include="Tests\QuicksortTests.cs" />
+    <Compile Include="Tests\RemoteControlTests.cs" />
     <Compile Include="Tests\RotateWithOneTraversalTests.cs" />
     <Compile Include="Tests\SkipListsTests.cs" />
     <Compile Include="Utils\Comparer.cs" />

@@ -39,7 +39,7 @@ namespace Algorithms.Sources
 
             // walk the number
             // if the left side digit is always bigger or equal than the corresponding digit
-            // then no need to updat the left side, only the right one
+            // then no need to update the left side, only the right one
             List<int> digits = getDigits(n);
             
             // consider the half, too, in case the number of elements is even

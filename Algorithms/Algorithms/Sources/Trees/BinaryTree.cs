@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 
@@ -493,6 +492,75 @@ namespace Algorithms.Sources.Trees
                 }
             }
             return -1;
+        }
+
+        public static List<int> KeysInRange(BinaryTree<int> node, int limitLeft, int limitRight)
+        {
+            var result = new List<int>();
+            if (node == null)
+            {
+                return result;
+            }
+
+            if (limitLeft <= node.Data)
+            {
+                result = result.Concat(KeysInRange(node.Left, limitLeft, limitRight)).ToList();
+                if (limitRight >= node.Data)
+                {
+                    result.Add(node.Data);
+                }
+
+            }
+            if (limitRight >= node.Data)
+            {
+                result = result.Concat(KeysInRange(node.Right, limitLeft, limitRight)).ToList();
+            }
+
+            return result;
+        }
+
+        public static BinaryTree<int> FindCeilNode(BinaryTree<int> head, int value)
+        {
+            BinaryTree<int> pred = null;
+            BinaryTree<int> node = findCeilNode(head, value, ref pred);            
+            return node ?? pred;
+        }
+
+        private static BinaryTree<int> findCeilNode(BinaryTree<int> node, int value, ref BinaryTree<int> pred)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+            if (node.Data == value + 1)
+            {
+                return node;
+            }
+            if (node.Data <= value)
+            {
+                return findCeilNode(node.Right, value, ref pred);
+            }
+
+            pred = node;
+            return findCeilNode(node.Left, value, ref pred);
+        }
+
+        /*
+         * Given a Binary Search Tree (BST), modify it so that all greater values in the given BST are added to every node
+         * 
+         * Do a right-centre-left traversal
+         * For a node, you have to add the total value of its right child + a parent carry containing the sum of nodes bigger
+         */
+        public static int AddAllGreaterValuesToNode(BinaryTree<int> node, int parentCarry = 0)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+            int rightSum = AddAllGreaterValuesToNode(node.Right, parentCarry);
+            int originalData = node.Data;
+            node.Data += parentCarry + rightSum;
+            return originalData + rightSum + AddAllGreaterValuesToNode(node.Left, node.Data);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Algorithms.Sources
     {
         public static void Partition(List<int> values)
         {
-            List<List<int>> partitions = computePartitions(values);
+            List<List<int>> partitions = ComputePartitions(values);
             partitions.ForEach(
                 x =>
                 {
@@ -17,7 +17,7 @@ namespace Algorithms.Sources
                 });
         }
 
-        public static List<List<int>> computePartitions(List<int> toSelect)
+        public static List<List<int>> ComputePartitions(List<int> toSelect)
         {
             var result = new List<List<int>>();
             if (toSelect.Count == 0)
@@ -34,7 +34,7 @@ namespace Algorithms.Sources
                 var resultList = new List<int> { toSelect[i] };
                 var list = new List<int>(toSelect);
                 list.RemoveAt(i);
-                foreach (List<int> partition in computePartitions(list))
+                foreach (List<int> partition in ComputePartitions(list))
                 {
                     result.Add(resultList.Concat(partition).ToList());
                 }

@@ -236,7 +236,34 @@ namespace Algorithms.Tests
             BinaryTree<int> newRoot = BinaryTree<int>.ReconstructTree(inorder.ToArray(), ref preorderArray);
             Assert.That(BinaryTree<int>.Inorder(newRoot), Is.EquivalentTo(inorder));
             Assert.That(BinaryTree<int>.Preorder(newRoot), Is.EquivalentTo(preorder));
+        }
 
+        [Test]
+        public void TestKeysInRange()
+        {
+            var head = new BinaryTree<int>(new List<int> { 4, 8, 12, 20, 21, 22, 24 });
+            Assert.That(BinaryTree<int>.KeysInRange(head, 8, 22), Is.EquivalentTo(new[] { 8, 12, 20, 21, 22 }));
+        }
+
+        [Test]
+        public void TestFindCeil()
+        {
+            var head = new BinaryTree<int>(new List<int> { 4, 8, 12, 20, 21, 22, 24 });
+            Assert.AreEqual(BinaryTree<int>.FindCeilNode(head, 4).Data, 8);
+            Assert.AreEqual(BinaryTree<int>.FindCeilNode(head, 8).Data, 12);
+            Assert.AreEqual(BinaryTree<int>.FindCeilNode(head, 20).Data, 21);
+            Assert.AreEqual(BinaryTree<int>.FindCeilNode(head, 21).Data, 22);
+            Assert.AreEqual(BinaryTree<int>.FindCeilNode(head, 22).Data, 24);
+            Assert.AreEqual(BinaryTree<int>.FindCeilNode(head, 1).Data, 4);
+            Assert.AreEqual(BinaryTree<int>.FindCeilNode(head, 7).Data, 8);
+            Assert.AreEqual(BinaryTree<int>.FindCeilNode(head, 17).Data, 20);
+        }
+
+        [Test]
+        public void TestAddAllGreaterElements()
+        {
+            var head = new BinaryTree<int>(new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
+            BinaryTree<int>.AddAllGreaterValuesToNode(head);
         }
 
         private BinaryTree<int> buildTreeForDeletion()
